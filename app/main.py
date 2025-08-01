@@ -1,9 +1,14 @@
-import socket  # noqa: F401
+from lib import curio
+
+
+async def client_connected_task(client: curio.io.Socket, addr: tuple[str, int]) -> None:
+    pass
 
 
 def main():
-    server_socket = socket.create_server(("localhost", 4221), reuse_port=True)
-    server_socket.accept() # wait for client
+    curio.run(
+        curio.tcp_server("localhost", 4221, client_connected_task, reuse_port=True)
+    )
 
 
 if __name__ == "__main__":
