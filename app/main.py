@@ -2,7 +2,13 @@ from lib import curio
 
 
 async def client_connected_task(client: curio.io.Socket, addr: tuple[str, int]) -> None:
-    pass
+    status = "HTTP/1.1 200 OK"
+    headers = ""
+    body = ""
+
+    response = "\r\n".join([status, headers, body])
+
+    await client.sendall(response.encode())
 
 
 def main():
